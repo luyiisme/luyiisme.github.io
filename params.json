@@ -1,6 +1,6 @@
 {
   "name": "Blog",
   "tagline": "blog",
-  "body": "# blog\r\nblog\r\n",
+  "body": "# Blog\r\n\r\n## [文章](./public)\r\n\r\n\r\n\r\n## [自己的碎碎记](./private)\r\n\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
