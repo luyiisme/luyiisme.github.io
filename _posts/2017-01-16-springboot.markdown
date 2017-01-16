@@ -9,9 +9,6 @@ tags:
     - uberJar
 ---
 
-
-<a href="http://www.reactivemanifesto.org/"> <img style="border: 0; position: fixed; left: 0; top:0; z-index: 9000" src="//d379ifj7s9wntv.cloudfront.net/reactivemanifesto/images/ribbons/we-are-reactive-black-left.png"> </a>
-
 将2016-01月的文章整理了下，就当前常用的可执行Jar（Executable Jar,Runnable Jar）的实现方案做下总结.
 
 JAR，一个jar文件是java 的jar工具构建的zip压缩文件，里面包含类文件，资源文件； 可以通过jar (或者zip)进行解压缩。
