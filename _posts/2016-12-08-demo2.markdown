@@ -1,16 +1,12 @@
 ---
 layout:     post
-title:      "111111Example Post, 样例"
-subtitle:   "111111子主题 What's going on?"
+title:      "Hello World"
 date:       2016-12-08
 author:     "luyi"
 header-img: "img/post-bg-js-version.jpg"
 tags:
-    - 试一试1
+    - hello world
 ---
 
-说点什么吧1111
+Hello World!
 
-#### 著作权声明
-
-首次发布于 [xx Blog]()，转载请保留以上链接
