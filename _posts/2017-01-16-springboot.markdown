@@ -17,6 +17,7 @@ tags:
 JAR，一个jar文件是java 的jar工具构建的zip压缩文件，里面包含类文件，资源文件； 可以通过jar (或者zip)进行解压缩。
 
 举个栗子，通过 maven 工程原型创建个j2se工程(工程名：uberJar ，什么是uberJar后面会讲)：
+
 ```
 uberjar
 ├── pom.xml
@@ -32,7 +33,9 @@ uberjar
                 └── luyi
                     └── AppTest.java
 ```
+
 看下其jar结构
+
 ```
  > target  jar -tf uberjar-1.0-SNAPSHOT.jar
 ...
@@ -51,6 +54,7 @@ org/luyi/App.class
 uberjar-1.0-SNAPSHOT.jar中没有主清单属性
 ```
 说明，uberJar项目默认打成的jar不是可执行jar,需要对MF进行定义，显示配置 maven-jar-plugin
+
 ```
   <build>
     <plugins>
@@ -70,6 +74,7 @@ uberjar-1.0-SNAPSHOT.jar中没有主清单属性
   </build>
 ```
 现在jar中MF文件，最后一行就多了入口类，
+
 ```
 >  target  cat  META-INF/MANIFEST.MF
 Manifest-Version: 1.0
@@ -80,6 +85,7 @@ Build-Jdk: 1.8.0_25
 Main-Class: org.luyi.App
 ```
 再执行，
+
 ```
 >  target  java -jar uberjar-1.0-SNAPSHOT.jar
 Hello World!
@@ -89,6 +95,7 @@ ok,那么一个可执行的jar制作完成，当然以上最基本可执行jar�
 ## 2. 那什么是可执行的uberJar，什么是uberJar？
 
 同样继续刚才的例子,我们现在uberJar的pom.xml中依赖gson,并且 org.luyi.App.class 不在简单打印"Hello World!",而是改为以 json 格式打印出虚拟机的环境变量
+
 ```
         System.out.println(new Gson().toJson(System.getenv()));
 
@@ -119,6 +126,7 @@ uber 是德语 ，"over"的含义。也叫fatJar,比起普通jar，fatJar将所�
             </plugin>
 ```
 这插件会把依赖的jar的文件覆盖到原生jar文件里，也就是其所有的依赖jar都被解压且合并进来了
+
 ```
 >  target  jar -tf uberjar-1.0-SNAPSHOT.jar
 ...
@@ -133,6 +141,7 @@ com/google/gson/annotations/Expose.class
 
 （1）万一uberjar.jar被其他应用依赖，其他系统也依赖gson而且版本不一致容易运行时出现冲突，解决方法[class-relocation](http://maven.apache.org/plugins/maven-shade-plugin/examples/class-relocation.html)
 （2）如果uberjar.jar的依赖里有同名的资源文件怎么办简单覆盖还是追求，解决方法[Resource Transformers](http://maven.apache.org/plugins/maven-shade-plugin/examples/resource-transformers.html)。比如spring的xml解析资源文件
+
 ```
 <configuration>
               <transformers>
@@ -150,6 +159,7 @@ com/google/gson/annotations/Expose.class
 ####  「2」第三方插件[onejar-maven-plugin](https://onejar-maven-plugin.googlecode.com/svn/mavensite/usage.html)
 
 配置插件，
+
 ```
 <plugin>
 		<groupId>com.jolira</groupId>
@@ -165,6 +175,7 @@ com/google/gson/annotations/Expose.class
 	</plugin>
 ```
 打包后，出现" uberjar-1.0-SNAPSHOT.one-jar.jar",
+
 ```
 >  target  jar -tf uberjar-1.0-SNAPSHOT.one-jar.jar
 META-INF/MANIFEST.MF
@@ -180,6 +191,7 @@ src/com/simontuffs/onejar/OneJarFile.java
 src/com/simontuffs/onejar/OneJarURLConnection.java
 ```
 多了很多新生成的类，再来看看MANIFEST.MF,
+
 ```
 > cat META-INF/MANIFEST.MF
 Manifest-Version: 1.0
@@ -196,6 +208,7 @@ Main-Class: com.simontuffs.onejar.Boot
 
  "org.springframework.boot：spring-boot-maven-plugin"的maven plugin，同样解决了uberJar的运行问题，处理逻辑与 onejar-maven-plugin 差不多。
 引入，
+
 ```
          <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -211,12 +224,14 @@ Main-Class: com.simontuffs.onejar.Boot
             </plugin>
 ```
 执行打包命令后，target目录
+
 ```
 ...
 -rw-r--r--  1 luyi  staff   313K  1 18 16:17 uberjar-1.0-SNAPSHOT.jar
 -rw-r--r--  1 luyi  staff   2.6K  1 18 16:17 uberjar-1.0-SNAPSHOT.jar.original
 ```
 ".original"标识的是原生的jar,而"uberjar-1.0-SNAPSHOT.jar"是个repackage执行出的uberJar,可以看下其结构
+
 ```
 >  target  jar -tf uberjar-1.0-SNAPSHOT.jar
 ...
@@ -228,6 +243,7 @@ lib/gson-2.5.jar
 ...
 org/springframework/boot/loader/JarLauncher.class
 ```
+
 在MF新增的Main-Class 是:
 >Main-Class: org.springframework.boot.loader.JarLauncher
 
