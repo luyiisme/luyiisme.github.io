@@ -5,8 +5,10 @@ date:       2017-01-16
 author:     "luyi"
 header-img: "img/post-bg-js-version.jpg"
 tags:
-    - spring boot ,fatJar
+    - fatJar
     - uberJar
+    - spring-boot-maven-plugin
+
 ---
 
 将2016-01月的文章整理了下，就当前常用的可执行Jar（Executable Jar,Runnable Jar）的实现方案做下总结.
