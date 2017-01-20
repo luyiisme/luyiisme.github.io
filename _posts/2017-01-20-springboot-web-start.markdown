@@ -28,6 +28,7 @@ public class SpringBootWebApplication {
 }
 ```
 ## 1 .怎么判断是否web项目？
+
 只需该应用的类加载器可以加载到下面两个类（即依赖相关jar包，spring-web,tomcat-embed-core）
 
 ```
@@ -70,6 +71,7 @@ public class Bootstrap {
 >另外在TomcatEmbeddedServletContainerFactory的初始化阶段有个EmbeddedServletContainerCustomizerBeanPostProcessor会定制(set修改属性)个ServerProperties的bean。供上下文里对Server要依赖使用的场景。
 
 ## 4. 怎么把Dispatcher登记为Servlet的呢？
+
 "org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration"该自动配置中，声明所有ServletRegistration.
 
 ```
