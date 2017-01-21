@@ -393,6 +393,7 @@ public class DefaultMethodExample implements Test2 {
     }
 }
 ```
+
 ### 冲突
 
 ```
