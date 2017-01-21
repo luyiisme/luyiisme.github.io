@@ -358,6 +358,7 @@ public class DefaultMethodExample implements Test {
     }
 }
 ```
+
 ### 覆写默认方法
 
 ```
@@ -410,11 +411,9 @@ Error:(6, 8) java: 类 org.luyi.lambda.defmtd.ConflictionExample从类型 org.lu
 解决冲突的方式是，实现类中重新覆写doSth方法,可以重新写实现，也可以使用任务一个父实现；
 
 ![image](https://luyiisme.github.io/img/in-post/lambda-override.png)
-.
-
-
 
 ---
+
 #### 著作权声明
 
 `首次发布于此，转载请保留以上链接`
