@@ -3,7 +3,7 @@ layout:     post
 title:      "Java8 Lambda 使用与原理分析"
 date:       2017-01-21
 author:     "luyi"
-header-img: "img/post-bg-green.jpg"
+header-img: "img/post-bg-pens.jpg"
 tags:
     - Java8
     - Lambda
