@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Java8 Lambda 使用与原理分析"
+title:      "Java8 Lambda使用与原理"
 date:       2017-01-21
 author:     "luyi"
 header-img: "img/post-bg-pens.jpg"
