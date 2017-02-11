@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "reactor 介绍(1)"
+title:      "Reactor Reactive编程介绍(1)"
 date:       2017-02-11
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
