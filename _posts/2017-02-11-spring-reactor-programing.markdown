@@ -14,9 +14,9 @@ tags:
 
 ## Reactor 是什么？
 
-很多人应该都知道 RxJava 项目，在 Netflix 被大规模使用来实现响应式编程。而Spring 社区也打算在 spring5中支持和推广 reactive 编程，但是并没有采用 RxJava 作为基础库，而是使用 Reactor3 项目（早期该项目一直研究消息的高效排放，到第二版后开始尝试实现 [Reactive Streams](http://www.reactive-streams.org/) 规范，终于在第三部宣告成功）。
+很多人应该都知道 RxJava 项目，在 Netflix 被大规模使用来实现响应式编程。而Spring 社区也打算在 spring5中支持和推广 reactive 编程，但是并没有采用 RxJava 作为基础库，而是使用 Reactor3 项目（早期该项目一直研究消息的高效派发，到第二版后开始尝试实现 [Reactive Streams](http://www.reactive-streams.org/) 规范，终于在第三版宣告成功了）。
 
-从目前一些spring 5的资料可以看到,Reactor 项目的api （尤其是Mono/Flux两个类型），将被Spring MVC,Spring Data 等子项目广泛使用。Spring (Pivotal) 的 Reactor（3）项目进行了较大革新，是一个针对Java 8，并遵守Rx规范的API的 Reactive Streams 代码库.与 RxJava 库设计原理与哲学基本一致，尽管有一些API差异。Reactor3 属于[第四代响应式库](http://akarnokd.blogspot.jp/2016/03/operator-fusion-part-1.html)（RxJava 2同样也是），允许操作聚合。
+从目前一些 spring 5 的资料可以看到,Reactor 项目的 api （尤其是 Mono/Flux 两个类型），将被 Spring MVC,Spring Data 等子项目广泛使用。Spring (Pivotal) 的 Reactor 3 项目进行了较大革新，是一个针对Java 8，并遵守Rx规范的API的 Reactive Streams 代码库.与 RxJava 库设计原理与哲学基本一致，尽管有一些API差异。Reactor3 属于[第四代响应式库](http://akarnokd.blogspot.jp/2016/03/operator-fusion-part-1.html)（RxJava 2同样也是），允许操作聚合。
 
 因此，Reactor 项目是 Spring Framework 5 的 响应式（reactive）编程的核心基石。
 
@@ -30,21 +30,21 @@ Observable 类（RxJava 库）是（数据流）推送源，Observer 是通过�
 
 ## Reactor 的类型
 
-Reactor 创造了两个主要类型：Flux<T>和Mono<T>。
+Reactor 创造了两个主要类型：`Flux<T>`和`Mono<T>`。
 
 - Flux 相当于一个 RxJava Observable，能够发出 0~N 个数据项，然后（可选地）completing 或 erroring。
 
-- Mono ,是指最多只能触发(emit) (事件)一次。它对应于 RxJava 库的 Single 和 Maybe 类型。因此一个异步任务，如果只是想要在完成时给出完成信号，就可以使用Mono<Void>。
+- Mono ,是指最多只能触发(emit) (事件)一次。它对应于 RxJava 库的 Single 和 Maybe 类型。因此一个异步任务，如果只是想要在完成时给出完成信号，就可以使用 `Mono<Void>`。
 
 同时在 reactive API 中提供这两类区分，使得按场景使用变得简单。通过查看返回的 reactive 类型，我们可以知道该方法是“fire-and-forget”,“request-response“（Mono）型,还是属于处理多个数据项作为stream（Flux）。
 
-Flux 和 Mono 可以通过一些运算符实现强制类型转换。例如，调用 single() 一个 Flux<T> 将返回一个 Mono<T>，而连接两个 monos一起使用 concatWith 将产生一个 Flux。然而有一些运算符是没有意义的，比如 Mono 使用 take(n)，其产生 n> 1个结果。
+Flux 和 Mono 可以通过一些运算符实现强制类型转换。例如，调用 single() 一个 `Flux<T>` 将返回一个 `Mono<T>`，而连接两个 monos一起使用 concatWith 将产生一个 Flux。然而有一些运算符是没有意义的，比如 Mono 使用 take(n)，其产生 n> 1个结果。
 
-Reactor 设计理念的一个方面是保持 API 精简，分离出两种 Reactive 类型是基于概念表达性和api易用性的综合考量。
+Reactor 设计理念的一个方面是保持 API 精简，分离出两种 Reactive 类型是基于概念表达性和 api 易用性的综合考量。
 
-### “基于 Rx，每个阶段都有反应流”
+### 基于 Rx 与 Reactive Streams
 
-RxJava (由于产生较早的缘故,基于Java6),具有一些与 Java8 概念相似的 Streams API。Reactor项目看起来很像RxJava，这当然不是巧合。目的是提供一个遵循 Rx 规范的 Reactive Streams 本地库，用于组合一些异步逻辑。因此，虽然Reactor根植于Reactive Streams，但它尽可能地寻求与 RxJava 的一般 API 对齐。
+RxJava (由于产生较早的缘故,基于Java6),具有一些与 Java8 概念相似的 Streams API。Reactor项目看起来很像 RxJava，这当然不是巧合。目的是提供一个遵循 Rx 规范的 Reactive Streams 本地库，用于组合一些异步逻辑。因此，虽然 Reactor 根植于 Reactive Streams，但它尽可能地寻求与 RxJava 的一般 API 对齐。
 
 ## Reactive 库和 Reactive Streams 的采用
 
@@ -58,13 +58,13 @@ Reactor 是 RS 第一个实现。Flux 和 Mono 为 RS 规范中 Publisher 实现
 
 这意味着，每次你使用这些适配器， Publisher 也没有任何运算符，为了做任何有用的操作，你可能又想退回使用 Observable，这意味着使用另一个适配器。这种混乱的使用方式不具有可读性，特别是当像Spring 5这样的整个框架直接建立在 Publisher 上时。
 
-从 RxJava 1 迁移到Reactor或RxJava 2时，记住与的另一个区别是，在RS规范中，null值不被允许。如果你的代码库 null 用来表示一些特殊情况，这点需要注意。
+从 RxJava 1 迁移到 Reactor 或 RxJava 2 时，记住与的另一个区别是，在 RS 规范中，null值不被允许。如果你的代码库 null 用来表示一些特殊情况，这点需要注意。
 
-RxJava 2是在 Reactive Streams 规范之后开发的，因此(mono/flux)直接实现 Publisher 。RxJava 2 除了关注RS类型，还保持了“传统”RxJava 1类型（Observable，Completable，和Single），并引入了“RxJava Optional” Maybe 类型。但是这些类型还是没有实现 RS 接口。注意，与RxJava 1不同，Observable 在RxJava 2 中不支持 backpressure 协议（现在专门保留的功能 Flowable）。它被保留用于为诸如用户界面事件（这类场景 backpressure 是不切实际或不可能）处理提供丰富且流畅的API。Completable，Single 和 Maybe 通过设计不需要 backpressure 支持，它们将提供丰富的API以及推迟任何工作负载直到被订阅。
+RxJava 2是在 Reactive Streams 规范之后开发的，因此(mono/flux)直接实现 Publisher 。RxJava 2 除了关注 RS 类型，还保持了“传统” RxJava 1类型（Observable，Completable，和Single），并引入了“RxJava Optional” Maybe 类型。但是这些类型还是没有实现 RS 接口。注意，与RxJava 1不同，Observable 在RxJava 2 中不支持 backpressure 协议（现在专门保留的功能 Flowable）。它被保留用于为诸如用户界面事件（这类场景 backpressure 是不切实际或不可能）处理提供丰富且流畅的API。Completable，Single 和 Maybe 通过设计不需要 backpressure 支持，它们将提供丰富的 API 以及推迟任何工作负载直到被订阅。
 
-Reactor Mono和Flux类型，实现了Publisher和 backpressure-ready。Mono作为一个Publisher开销（大部分被其他优化抵消）相对较小。我们将在后面部分看到 backpressure 对于 Mono的意义。
+Reactor Mono 和 Flux 类型，实现了 Publisher 和 backpressure-ready。Mono 作为一个 Publisher 开销（大部分被其他优化抵消）相对较小。我们将在后面部分看到 backpressure 对于 Mono的意义。
 
-## 一个类似于但不等于 RxJava 的API
+## 一个类似于(但不等于) RxJava 的API
 
 ReactiveX 和 RxJava 运算符的词汇表由于历史原因可能具有混淆的名称。Reactor 旨在有一个更紧凑的API(特殊场景有些背离了，例如为了选择更好的名字）。总体而言，两个 API 看起来是很相似。实际上，RxJava 2 中的最新迭代实际上也从Reactor中借用了一些词汇，这是两个项目之间持续密切合作的一个提示。一些操作符和概念首先出现在一个库中，但通常最终出现在两个库中。
 
@@ -81,6 +81,7 @@ Reactor可以更精简的另一个方式是，在类实例化和资源使用方�
 （本节包含代码片段，我们建议您尝试进行进一步实验，为此，您应该打开您选择的IDE并创建一个以Reactor为依赖的测试项目。）
 
 要在Maven中这样做，请将以下内容添加到pom.xml的dependencies部分：
+
 ```
 <dependency>
     <groupId>io.projectreactor</groupId>
@@ -88,13 +89,17 @@ Reactor可以更精简的另一个方式是，在类实例化和资源使用方�
     <version>3.0.3.RELEASE</version>
 </dependency>
 ```
+
 要在Gradle中做同样的事情，编辑依赖项部分以添加反应器，类似于：
+
 ```
 dependencies {
     compile "io.projectreactor:reactor-core:3.0.3.RELEASE"
 }
 ```
+
 类似于如何创建您的第一个RxJava Observable ，您可以创建一个Flux使用just(T…)和fromIterable(Iterable<T>)Reactor工厂方法。请记住，对于一个给定的List，使用 just 方法时，将发出(emit)该列表作为一个整体，而fromIterable 将发出该迭代列表种每个元素：
+
 ```
 public class ReactorSnippets {
   private static List<String> words = Arrays.asList(
@@ -120,7 +125,9 @@ public class ReactorSnippets {
   }
 }
 ```
+
 打印:
+
 ```
 Hello
 World
@@ -135,7 +142,9 @@ the
 lazy
 dog
 ```
+
 为了输出“fox”中的每个字母，我们还需要 flatMap（如我们通过实例RxJava所做的那样），但在 Reactor 中，我们用fromArray，而不是from。然后，我们要过滤掉重复的字母，并使用 distinct 和对它们进行排序。最后，我们要为每个不同的字母输出一个索引，可以使用zipWith和range：
+
 ```
 @Test
 public void findingMissingLetter() {
@@ -151,6 +160,7 @@ public void findingMissingLetter() {
 }
 ```
 这有助于我们注意到和预期一样没有`s`：
+
 ```
 1. a
 2. b
@@ -161,7 +171,9 @@ public void findingMissingLetter() {
 ...
 25. z
 ```
+
 一种修复方法是修改原始单词数组，但我们也可以手动添加“s”值到字母的 Flux 中，使用 concat/concatWith 和一个 Mono：
+
 ```
 @Test
 public void restoringMissingLetter() {
@@ -178,7 +190,9 @@ public void restoringMissingLetter() {
   allLetters.subscribe(System.out::println);
 }
 ```
+
 添加缺少的s 操作，发生在我们过滤掉重复项和排序/计数字母之前：
+
 ```
 1. a
 2. b
@@ -189,7 +203,9 @@ public void restoringMissingLetter() {
 ...
 26. z
 ```
+
 上一篇文章指出了 Rx 词汇和 Streams API 之间的相似之处，事实上当数据容易从内存中获得时，Reactor 像 Java Streams 一样，以简单的推送模式工作（参见下面的 backpressure 部分）。更复杂和真正的异步代码片段不适用于在主线程中订阅的模式，主要是因为控制将返回到主线程，然后一旦订阅完成就退出应用程序。例如：
+
 ```
 @Test
 public void shortCircuit() {
@@ -204,6 +220,7 @@ public void shortCircuit() {
 此代码段打印“Hello”，但无法打印延迟的“world”，因为测试终止太早。在片段和测试中，你只需要编写一个这样的主类，你通常会想要恢复到阻塞行为。为此，您可以创建CountDownLatch,并在您的订阅者中(onError 和 onCompelete 中)执行 countDown 。但是那不是 reactive（而且错误时，你忘记了 countDown 呢？）
 
 你可以解决这个问题的第二种方法是使用一个可以恢复到非 reactive 世界的运算符。具体来说，toIterable 并且 toStream 都将产生阻塞实例。所以让我们使用 toStream ,来说明我们的例子：
+
 ```
 @Test
 public void blocks() {
@@ -216,9 +233,11 @@ public void blocks() {
                  .forEach(System.out::println);
 }
 ```
+
 正如你所期望的，这打印“Hello”，然后短暂的暂停，然后打印“world”随后终止。
 
 正如我们上面提到的，RxJava amb()运算符已经被重命名 firstEmitting（这更清楚地暗示了运算符的意图：emit 第一个 Flux）。在下面的示例中，我们创建一个 Mono 其开始前被延迟了 450ms ,以及一个 Flux 在每个值emit之前暂停400ms。当 firstEmitting() 他们时，由于Flux的第一个元素优先发出（相比mono），故flux得到使用：
+
 ```
 @Test
 public void firstEmitting() {
@@ -232,6 +251,7 @@ public void firstEmitting() {
       .forEach(System.out::println);
 }
 ```
+
 这打印句子的每个部分之间是都会有400ms的暂停。
 
 此时你可能会想，如果你正在写一个 Flux 的测试，引入延迟4000ms而不是400ms呢？你不想在单元测试中等待4s！幸运的是，我们将在后面的章节中看到，Reactor 带有强大的测试工具可以解决这个问题。
