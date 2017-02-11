@@ -254,14 +254,14 @@ public void firstEmitting() {
 
 这打印句子的每个部分之间是都会有400ms的暂停。
 
-此时你可能会想，如果你正在写一个 Flux 的测试，引入延迟4000ms而不是400ms呢？你不想在单元测试中等待4s！幸运的是，我们将在后面的章节中看到，Reactor 带有强大的测试工具可以解决这个问题。
+此时你可能会想在这个 Flux 的测试中，引入延迟 4000ms 而不是 400ms 呢？然而你不会想在单元测试中等待4s！幸运的是，我们将在后面的章节中看到，Reactor 带有强大的测试工具可以解决这个问题。
 
 ## 基于 Java 8
-Reactor 针对 Java 8 而不是老的Java 版本。这再次符合减少API目标：RxJava 是针对Java 6，那时还没有 java.util.function 包，所以类似 Function 或 Consumer 不能利用。相反，他们不得不像添加特定的类 Func1，Func2，Action0，Action1等。RxJava 2 这些类也仍然存在需要支持老的JDK。
+Reactor 针对的是 Java 8 ，而不是老的Java 版本。这再次符合减少 API 目标：RxJava 是针对Java 6，那时还没有 java.util.function 包，所以类似 Function 或 Consumer 不能利用。相反，他们不得不像添加特定的类 Func1，Func2，Action0，Action1等。RxJava 2 这些类也仍然存在需要支持老的JDK。
 
 Reactor API 也拥抱 Java 8才引入的类型. 多数的时间相关的运算符，表达“持续时间”时（例如timeout，interval，delay等等），使用了Java 8 Duration 类。
 
-Java 8 StreamAPI 和 CompletableFuture 也可以很容易地转换为 Flux/Mono，反之亦然。我们是否应该经常讲转换 Stream 转为 Flux 吗？不是。添加Flux或Mono是可以忽略不计的成本时，他们包装IO或内存绑定操作等更昂贵的操作，但大部分时间的Stream并没有上述延迟，因此完全可以使用StreamAPI 。请注意，这些用例在使用 RxJava2 时，，我们将使用Observable，它不是 back-pressure 的，因此在订阅后就成为一个简单的push的用例。但是Reactor基于Java 8，Stream API对于大多数用例都足够表达。还要注意，即使你可以看到的是一些字面量（String,Double?）或简单的对象 Flux 和 Mono工厂，它们大多服务于在更高层次的流组合的目的。因此，通常你不会想将现有代码访问器（如“ long getCount()”）转换为 Reactive 编程中的“ Mono<Long> getCount()”。
+Java 8 StreamAPI 和 CompletableFuture 也可以很容易地转换为 Flux/Mono，反之亦然。我们是否应该经常将转换 Stream 转为 Flux 吗？不是。添加 Flux 或 Mono 是可以忽略不计的成本时，他们包装IO或内存绑定操作等更昂贵的操作，但大部分时间的 Stream 并没有上述延迟，因此完全可以使用 StreamAPI 。请注意，这些用例在使用 RxJava2 时，，我们将使用Observable，它不是 back-pressure 的，因此在订阅后就成为一个简单的push的用例。但是Reactor基于Java 8，Stream API对于大多数用例都足够表达。还要注意，即使你可以看到的是一些字面量（String,Double?）或简单的对象 Flux 和 Mono工厂，它们大多服务于在更高层次的流组合的目的。因此，通常你不会想将现有代码访问器（如“ long getCount()”）转换为 Reactive 编程中的“ Mono<Long> getCount()”。
 
 ---
 
