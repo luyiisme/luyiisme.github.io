@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "spring boot web 工程启动分析"
+title:      "Spring boot web 工程启动分析"
 date:       2017-01-20
 author:     "luyi"
 header-img: "img/post-bg-pens.jpg"
