@@ -15,7 +15,7 @@ tags:
 
 keepalive机制，是http协议层面引入的，为了复用tcp连接的标识。
 
- - 首先是 [浏览器-->nginx 阶段] 的http请求基于的connection。 nginx的 http module 我们除了配置使用 http1.1 协议外，还需要关心：
+### 1.1.首先是 [浏览器-->nginx 阶段] 的http请求基于的connection。 nginx的 http module 我们除了配置使用 http1.1 协议外，还需要关心：
 
 ```
   keepalive_disable none； //表示对所有的浏览器都支持keepalive;(默认只对 msie6)
@@ -27,17 +27,17 @@ keepalive机制，是http协议层面引入的，为了复用tcp连接的标识�
 
 至此，如果你是请求静态资源(即 nginx 提供的资源服务)那么 http 协议的 keepalive 优化机制就生效了；
 
-- 如果请求被反向代理进行了 tomcat，「nginx-->java server 阶段」
+### 1.2.如果请求被反向代理进行了 tomcat，「nginx-->java server 阶段」
 
  这里场景比较特殊，因为对 tomcat 而言，面对的 client 是确定的，不再是不确定的用户端，因此我们尽量最大化去使用 keepalive 能力；
 
- * （2.1）nginx 端 http-upstream 模块，有个相关配置 keepalive(nginx 版本至少 1.1.4)：
+  * nginx 端 http-upstream 模块，有个相关配置 keepalive(nginx 版本至少 1.1.4)：
 
 ```
   keepalive  connections; //没有默认值；缓存住多少个空闲keepalive的conn供使用，超过部分会关闭；（为什么会超过？因为如果并发较大，当时的conn资源小于请求数量就会创建）；另外如果upstream配置了个多个，每个都connections个；
 ```
 
- * （2.2）最后tomcat的connector的配置参数：
+ * 最后tomcat的connector的配置参数：
 
 ```
   keepAliveTimeout  //默认值是connectionTimeout的值（单位毫秒），我们可以用-1表示不超时。
