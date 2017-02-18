@@ -28,11 +28,9 @@ nginx 加上这个头效果一样，处理客户端非正常退出情况，保�
 
 - 3、为什么有的应用报这个问题，有的 nginx 无 proxy_ignore_client_abort 确没有打错误日志？
 
-tomcat 的专门 coyoteWriter 的写方法，已经替你忽略掉写的时候发生的异常。因此，异常其实是产生的，只不过被吞了。
-      但为什么有的还打印出日志呢？这些应用是直接使用response.getWriter()拿到的，而拿取 response.getOutputStream() 来构造的writer,则没有忽略异常，而是选择了抛出，因此你看到了这个问题；`那么更一般的情况下，我们会在 mvc 框架的 controller 里（或者 servlet 里，或其他场合），直接操作 response.getOutputStream() 来进行业务输出响应流操作，异常会同样抛出`。
+tomcat 的专门 coyoteWriter 的写方法，已经替你忽略掉写的时候发生的异常。因此，异常其实是产生的，只不过被吞了。但为什么有的还打印出日志呢？这些应用是直接使用response.getWriter()拿到的，而拿取 response.getOutputStream() 来构的writer,则没有忽略异常，而是选择了抛出，因此你看到了这个问题；`那么更一般的情况下，我们会在 mvc 框架的 controller 里（或者 servlet 里，或其他场合），直接操作 response.getOutputStream() 来进行业务输出响应流操作，异常会同样抛出`。
 
-     备注：一旦这个异常发生，如果你还尝试去拦截处理的这个异常，并再次返回响应，但是因为你操作过了response.getOutputStream了，所有会再抛异常说`...response has been commited`! 那么解决的思路就是，加 nginx 的头，或者在 controller 里拦截这种 ClientAbortException，并忽略。
-
+备注：一旦这个异常发生，如果你还尝试去拦截处理的这个异常，并再次返回响应，但是因为你操作过了response.getOutputStream了，所有会再抛异常说`...response has been commited`! 那么解决的思路就是，加 nginx 的头，或者在 controller 里拦截这种 ClientAbortException，并忽略。
 
 - 4、我自己在分析这个异常产生时，发现有的情况下套接字输出会抛ClientAbortException，有的时候提交正常？
 
