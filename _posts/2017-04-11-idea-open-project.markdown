@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "命令行快速打开 idea 项目"
-date:       2017-04-10
+date:       2017-04-12
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
 tags:
