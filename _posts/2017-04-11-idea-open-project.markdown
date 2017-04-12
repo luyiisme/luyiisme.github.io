@@ -1,29 +1,37 @@
 ---
 layout:     post
-title:      "在命令行中里快速打开 idea 项目"
+title:      "命令行快速打开 idea 项目"
 date:       2017-04-10
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
 tags:
+    - intellij
     - idea
     - 命令行
-    - 快速打开项目
+    - 打开项目
 ---
-如果你是用的mac os,你可以在 alfred 中快速启动intellj idea，然后再最近打开过的历史中找到自己的想要打开的项目，或者
-点"open"去文件系统目录中去选择。上述选择打开项目有点麻烦，如何在命令行里快速打开 idea 项目？比如:
+首先找到并打开(如果你是用的mac os,你可以在 alfred 中快速启动) intellij idea程序，然后在最近打开过的项目历史中找到目标项目，或者
+点"open"后，去文件系统目录中去选择。上述过程中打开项目有点麻烦。
+
+这里介绍了一种在命令行里快速打开 idea 项目的方法？比如:
+
 ```
 //启动idea 应用
 idea
+```
 
+```
 //项目根目录
 idea $project.dir
+```
 
+```
 //打开项目pom.xml
 idea $project.pom.file
 ```
-下面，介绍一种实现方式:
+下面是具体实现方式:
 
-- 首先，新建个shell脚本 idea.sh;
+- 首先，新建个shell脚本 「idea.sh」;
 
 ```
 #!/bin/sh
@@ -71,22 +79,13 @@ else
 fi
 ```
 
-[内容来源](https://gist.github.com/chrisdarroch/7018927)
+[内容来源于此](https://gist.github.com/chrisdarroch/7018927)
 
 - 然后 (chmod 该脚本权限后)在 ~/.profile 新增 alias
 
 ```
 alias idea="sh $dir/idea.sh"
 ```
-
-
-
-
-
-
-
-
-
 ---
 ### 著作权声明
 
