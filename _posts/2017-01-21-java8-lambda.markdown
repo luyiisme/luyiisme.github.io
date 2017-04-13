@@ -5,8 +5,7 @@ date:       2017-01-21
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
 tags:
-    - Java8
-    - Lambda
+    - Java
 ---
 
 ## 1.Lambda相关概念与特性

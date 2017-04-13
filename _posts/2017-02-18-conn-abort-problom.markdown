@@ -5,9 +5,7 @@ date:       2017-02-18
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
 tags:
-    - ClientAbortException
-    - Broken pipe
-    - socketException
+    - java
 ---
 
 ## 话题：

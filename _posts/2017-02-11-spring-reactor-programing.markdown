@@ -5,11 +5,7 @@ date:       2017-02-11
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
 tags:
-    - reactive streams
-    - reactive
-    - RxJava
-    - reactor
-    - spring5
+    - spring-reactor
 ---
 
 ## Reactor 是什么？

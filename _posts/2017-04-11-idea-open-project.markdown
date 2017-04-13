@@ -6,9 +6,6 @@ author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
 tags:
     - intellij
-    - idea
-    - 命令行
-    - 打开项目
 ---
 首先找到并打开(如果你是用的mac os,你可以在 alfred 中快速启动) intellij idea程序，然后在最近打开过的项目历史中找到目标项目，或者
 点"open"后，去文件系统目录中去选择。上述过程中打开项目有点麻烦。

@@ -5,11 +5,7 @@ date:       2017-02-12
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
 tags:
-    - reactive streams
-    - reactive
-    - RxJava
-    - reactor
-    - spring5
+    - spring-reactor
 ---
 ## backpressure 故事
 

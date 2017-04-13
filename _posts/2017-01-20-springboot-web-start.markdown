@@ -5,10 +5,7 @@ date:       2017-01-20
 author:     "luyi"
 header-img: "img/post-bg-pens.jpg"
 tags:
-    - fatJar
     - spring-boot
-    - web
-
 ---
 
 这里主要基于web工程分析，而非web工程相对简单点，启动过程只要启动了应用spring上下文就可以了，没有文档第2步之后的过程。

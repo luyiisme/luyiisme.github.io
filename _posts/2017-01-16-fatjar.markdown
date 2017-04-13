@@ -5,9 +5,7 @@ date:       2017-01-16
 author:     "luyi"
 header-img: "img/post-bg-js-version.jpg"
 tags:
-    - fatJar
-    - uberJar
-    - spring-boot-maven-plugin
+    - spring-boot
 
 ---
 

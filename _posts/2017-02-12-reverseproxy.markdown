@@ -5,9 +5,7 @@ date:       2017-02-12
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
 tags:
-    - nginx
-    - tomcat
-    - 长连接
+    - java
 ---
 讨论场景：      NGINX 可以 http1.1 反向代理泛web容器(比如，Tomcat)的部署形式
 
