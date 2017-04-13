@@ -5,7 +5,7 @@ date:       2016-12-08
 author:     "luyi"
 header-img: "img/post-bg-js-version.jpg"
 tags:
-    - java 
+    - java
 ---
 
 Hello World!
