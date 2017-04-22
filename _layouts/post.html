@@ -91,7 +91,7 @@ layout: default
                 </ul>
 
 
-                <div id="comment-container"></div>
+                <div id="gitcomments"></div>
 
 
                 {% if site.disqus_username %}
@@ -148,13 +148,13 @@ layout: default
 var gitment = new Gitment({
 //  id: '页面 ID', // 可选。默认为 location.href
   owner: 'luyiisme',
-  repo: 'luyiisme.github.io',
+  repo: 'comments',
   oauth: {
     client_id: '29df135146a9ddfa6d42',
     client_secret: 'aa4dc0990832f3270a11dca5446e510ac6b729c3',
   },
 })
-gitment.render('comment-container')
+gitment.render('gitcomments')
 </script>
 
 <!---百度统计d-->
