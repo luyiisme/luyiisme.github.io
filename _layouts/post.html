@@ -91,17 +91,8 @@ layout: default
                 </ul>
 
 
-                {% if site.duoshuo_username %}
-                <!-- 多说评论框 start -->
-                <div class="comment">
-                    <div class="ds-thread"
-                        data-thread-key="{{page.id}}"
-                        data-title="{{page.title}}"
-                        data-url="{{site.url}}{{site.baseurl}}{{page.url}}" >
-                    </div>
-                </div>
-                <!-- 多说评论框 end -->
-                {% endif %}
+                <div id="comment-container"></div>
+
 
                 {% if site.disqus_username %}
                 <!-- disqus 评论框 start -->
@@ -151,25 +142,20 @@ layout: default
     </div>
 </article>
 
-{% if site.duoshuo_username %}
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    // dynamic User by Hux
-    var _user = '{{site.duoshuo_username}}';
-
-    // duoshuo comment query.
-    var duoshuoQuery = {short_name: _user };
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0]
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+//  id: '页面 ID', // 可选。默认为 location.href
+  owner: 'luyiisme',
+  repo: 'https://github.com/luyiisme/luyiisme.github.io.git',
+  oauth: {
+    client_id: '29df135146a9ddfa6d42',
+    client_secret: 'aa4dc0990832f3270a11dca5446e510ac6b729c3',
+  },
+})
+gitment.render('comment-container')
 </script>
-<!-- 多说公共JS代码 end -->
-{% endif %}
 
 <!---百度统计d-->
 <script>
@@ -177,7 +163,7 @@ var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
   hm.src = "https://hm.baidu.com/hm.js?65d6edc476b8e9053314e6edfa3b3578";
-  var s = document.getElementsByTagName("script")[0]; 
+  var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
