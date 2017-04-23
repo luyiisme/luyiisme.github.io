@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "服务发现常用产品的分析比较"
+title:      "服务发现比较:Consul vs Zookeeper vs Etcd vs Eureka"
 date:       2017-04-22
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"

@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Elasticsearch Rollover 功能高效管理时序数据（上）"
+title:      "Elasticsearch Rollover 高效管理时序数据（上）"
 date:       2017-04-13
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
