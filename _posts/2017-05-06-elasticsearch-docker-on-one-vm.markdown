@@ -16,7 +16,7 @@ tags:
 
  * docker.elastic.co/elasticsearch/elasticsearch:5.3.2
 
-ES Docker 镜像选用： (ES 的官方文档中提供的)镜像注册中心 docker.elastic.co 中（es,kibana）镜像默认集成了 x-pack。x-pack 插件可以方便的进行集群监控，且即使试用证书过期了[监控功能是免费证书包括的](https://www.elastic.co/subscriptions)。
+ES Docker 镜像选用： (ES 的官方文档中提供的)镜像注册中心 docker.elastic.co 中（es,kibana）镜像默认集成了 x-pack。x-pack 插件可以方便的进行集群监控，且即使试用证书过期了,[监控功能是「免费证书」也支持的功能](https://www.elastic.co/subscriptions)。
 
 注意，Docker Hub 中的 elasticsearch,kibana 镜像虽然注明也是官方提供的，但是没有默认集成 x-pack 插件(如果需要可以基于此定制镜像，并安装相关插件的)。
 
@@ -57,6 +57,7 @@ curl http://localhost:9200/_cat/health?v
 epoch      timestamp cluster    status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
 1494051382 06:16:22  lookout-es green           2         2      4   2    0    0        0             0                  -                100.0%
 ```
+看到已经部署的2个 es 实例运行正常。
 
 - 也可以运行一个 kibana 容器，图形化查看监控集群状态；
 
@@ -66,6 +67,7 @@ link 到容器 elas1，暴露映射5601端口，同时指定 elas1主机为 kiba
 docker run -d --name kibana  --link elas1 -e ELASTICSEARCH_URL=http://elas1:9200 -p 5601:5601\
  docker.elastic.co/kibana/kibana:5.3.2
 ```
+然后再浏览器中访问 kibana的监控功能，显示总体集群状态如下：
 
 ![image](https://luyiisme.github.io/img/in-post/kibana050701.jpg)
 
