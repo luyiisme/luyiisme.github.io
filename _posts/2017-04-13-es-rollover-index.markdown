@@ -5,7 +5,7 @@ date:       2017-04-13
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
 tags:
-    - elastic
+    - elasticsearch
 ---
 大家在使用 Elasticsearch 管理时序数据（比如 日志事件）时经常习惯于将每一天的数据作为一个 Index。根据日志事件的时间戳可以产生最近一天的新索引，新Index的定义可以事先使用 [index 模板](https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html).
 
