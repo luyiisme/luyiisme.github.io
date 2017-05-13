@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Ribbon2 核心设计分析"
+title:      "Ribbon2 核心设计和原理分析"
 date:       2017-05-09
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
