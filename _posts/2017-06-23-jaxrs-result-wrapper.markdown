@@ -112,6 +112,7 @@ public class UnwrapResultJaxrsFilter implements ClientRequestFilter {
 public Movie movieByImdbId( String imdbId){
   resteasyHttpRequest.remove("wrap-result");
 }
+```
 
 当然也可以自定义个注解"@ResultWrapper(false)"，不要写上述代码，如下：
 
