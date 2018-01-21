@@ -43,9 +43,27 @@ keep-alive 协议头，是 HTTP 协议层面引入的，为了复用底层 TCP �
 怎么理解这个最大空闲的阀值呢。假设当前处于空闲状态的连接数目超过了该值，那么超过数目的部分连接会被关闭；
 这种情况也是比较正常的，当一段时间并发的请求过多（比如整点的业务活动），现有的（nginx到tomcat的）连接不够用了，就会创建新的，一旦这些请求处理响应结束了，就会多出很多的空闲连接了。
 
+```
+upstream http_backend {
+    server 127.0.0.1:8080;
+    keepalive 16;
+}
+
+server {
+    ...
+    location /http/ {
+        proxy_pass http://http_backend;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        ...
+    }
+}
+```
+另外proxy_pass 需搭配“proxy_http_version 1.1”，“proxy_set_header Connection ""”两个配置项。表示在代理外部请求到上游服务器时，忽略原始请求的关于 Connection 头的设置，且重新以 HTTP 1.1协议版本（因为该版本是默认支持Keep-Alive的）转发给应用服务器端.
+
 这里补充说明下 HTTP 1.* 协议复用持久连接的背景。因为先前的年代浏览器都默认短连接，如果页面中资源过多时，频繁创建新连接去服务每个资源请求这样明显效率不高的，因此通过连接持久化供多个请求复用来提高效率。但是这种复用对请求而言是同步的，后面的请求需要等待前面的请求收到响应后，才能复用。比如，某个主要的业务服务的http请求在应用服务器处理需要：100毫秒, 那么每秒大约一个连接最大可以供10个请求复用。因此上面最大空闲连接数设置多大，是可以粗略估算的。
 
-另外，如果 nginx 中配置了多个 upstream，每个最大空闲数目都是 “connections” ；
+另外，如果 nginx 中 upstream 配置了多个 server，那么每个server的每个最大空闲数目都是 “connections” ；
 
  * 最后讨论下 tomcat 的 connector 的配置参数：
 
