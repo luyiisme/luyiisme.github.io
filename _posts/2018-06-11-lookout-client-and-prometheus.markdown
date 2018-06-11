@@ -125,8 +125,11 @@ public class Application {
 - 新增应用配置文件
 
 首先创建个资源目录`mkdir -p  demo/src/main/resources`,然后新建个 application.properties 文件（或 YAML 文件）。
-`echo "spring.application.name=demo" > demo/src/main/resources/application.properties`。需要注意的是应用名
-是必须指定的！
+
+```
+echo "spring.application.name=demo" > demo/src/main/resources/application.properties
+```
+需要注意的是应用名是必须指定的！
 
 - 检查启动状态
 
@@ -155,7 +158,8 @@ scrape_configs:
 有了上面的配置文件之后，可以再到本地通过 Docker 来启动 Prometheus：
 
 ```
-docker run -d -p 9090:9090 -v $PWD/prometheus.yml:/etc/prometheus/prometheus.yml  --name prom prom/prometheus:master
+docker run -d -p 9090:9090 -v $PWD/prometheus.yml:/etc/prometheus/prometheus.yml\
+  --name prom prom/prometheus:master
 ```
 
 然后通过浏览器访问: http://localhost:9090，再通过 PromQL 查询即可查询到对应的 Metrics (比如：`http://localhost:9090/graph?g0.range_input=1h&g0.expr=jvm_memory_heap_used&g0.tab=0`)。
