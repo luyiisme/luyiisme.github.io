@@ -8,7 +8,6 @@ tags:
     - SOFALookout
     - Lookout
     - Prometheus
-    - grafana
 ---
 
 [SOFALookout](https://github.com/alipay/sofa-lookout) ,是一个利用多维度的 metrics 对目标系统进行度量和监控的项目。SOFALookout 项目分为客户端部分与服务器端部分，由于
