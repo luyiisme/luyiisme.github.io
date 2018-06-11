@@ -10,12 +10,14 @@ tags:
     - Prometheus
     - grafana
 ---
+
 [SOFALookout](https://github.com/alipay/sofa-lookout) ,是一个利用多维度的 metrics 对目标系统进行度量和监控的项目。SOFALookout 项目分为客户端部分与服务器端部分，由于
 服务器端代码暂未开源，本文将讲解如何将 SOFALookout 的客户端采集到的 metrics 上报给 Prometheus 进行监控。
 
 ## 1.创建简单的 SpringBoot 的 demo 项目
 
 - 创建 demo 工程
+
 可以通过 http://start.spring.io/ 创建个 demo 项目(附加个 Web 模块便于演示)。 或者也可以本地快速构建项目，在 *nix系统创建项目结构 `mkdir -p demo/src/main/java/hello`:
 
 ```
@@ -84,6 +86,7 @@ demo
     </pluginRepositories>
 </project>
 ```
+
 - 创建个启动类
 
 在 hello 的包下创建 `Application.java`文件
@@ -147,6 +150,7 @@ scrape_configs:
     static_configs:
       - targets: ['10.15.232.101:9494']
 ```
+
 目标的 IP 地址可以是LAN地址，不要是 localhost，要保证 prometheus 容器内部可以访问到。
 
 有了上面的配置文件之后，可以再到本地通过 Docker 来启动 Prometheus：
