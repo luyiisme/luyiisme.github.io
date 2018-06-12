@@ -166,6 +166,7 @@ docker run -d -p 9090:9090 -v $PWD/prometheus.yml:/etc/prometheus/prometheus.yml
 ![image](/img/in-post/lookout-prom-1.jpg)
 
 ## 3.通过 Lookout SDK 新增业务埋点
+
 下面我们演示如何统计某个 web 服务被请求的次数，首页在 demo 应用中新增个 RestController 代码如下:
 
 ```java
@@ -184,14 +185,14 @@ public String echo(@PathVariable String words) {
 }
 ```
 
-重启应用，并发访问：
+重启应用，并访问：
 
 ```
 ➜  demo curl http://localhost:8080/echo/hello
 hello%    
 ```
 
-每访问一次，请求计数器自助一次。然后我们可以在 Prometheus 控制台进行查看（时间跨度可以选择短一点，比如 1~5 分钟）。
+每访问一次，请求计数器自增一次。然后我们可以在 Prometheus 控制台进行查看（时间跨度可以选择短一点，比如 1~5 分钟）。
 
 ![image](/img/in-post/lookout-prom-2.jpg)
 
