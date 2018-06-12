@@ -165,3 +165,35 @@ docker run -d -p 9090:9090 -v $PWD/prometheus.yml:/etc/prometheus/prometheus.yml
 然后通过浏览器访问: http://localhost:9090，再通过 PromQL 查询即可查询到对应的 Metrics (比如：`http://localhost:9090/graph?g0.range_input=1h&g0.expr=jvm_memory_heap_used&g0.tab=0`)。
 
 ![image](/img/in-post/lookout-prom-1.jpg)
+
+## 3.通过 Lookout SDK 新增业务埋点
+下面我们演示如何统计某个 web 服务被请求的次数，首页在 demo 应用中新增个 RestController 代码如下:
+
+```java
+...
+import com.alipay.lookout.api.*;
+
+@Autowired
+private Registry registry;
+
+@GetMapping("/echo/{words}")
+public String echo(@PathVariable String words) {
+    Id id = registry.createId("http_requests_total")
+            .withTag("host", NetworkUtil.getLocalAddress().getHostName());
+    registry.counter(id).inc();
+    return words;
+}
+```
+
+重启应用，并发访问：
+
+```
+➜  demo curl http://localhost:8080/echo/hello
+hello%    
+```
+
+每访问一次，请求计数器自助一次。然后我们可以在 Prometheus 控制台进行查看（时间跨度可以选择短一点，比如 1~5 分钟）。
+
+![image](/img/in-post/lookout-prom-2.jpg)
+
+上面简单演示了 Count 型 metrics 的使用，更多使用说明和 metrics 类型可以参考 [SOFALookout](https://github.com/alipay/sofa-lookout) 的 WIKI 文档。
