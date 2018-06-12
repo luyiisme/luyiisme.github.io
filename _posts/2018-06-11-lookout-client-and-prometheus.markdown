@@ -10,10 +10,9 @@ tags:
     - Prometheus
 ---
 
-[SOFALookout](https://github.com/alipay/sofa-lookout) ,是一个利用多维度的 metrics 对目标系统进行度量和监控的项目。SOFALookout 项目分为客户端部分与服务器端部分，由于
-服务器端代码暂未开源，本文将讲解如何将 SOFALookout 的客户端采集到的 metrics 上报给 Prometheus 进行监控。
+[SOFALookout](https://github.com/alipay/sofa-lookout) ,是一个利用多维度的 metrics 对目标系统进行度量和监控的项目。SOFALookout 项目分为客户端部分与服务器端部分，由于服务器端代码暂未开源，本文将讲解如何将 SOFALookout 的客户端采集到的 metrics 上报给 Prometheus 进行监控。
 
-## 1.创建简单的 SpringBoot 的 demo 项目
+## 1.创建个简单 SpringBoot 的 demo 项目
 
 - 创建 demo 工程
 
@@ -143,7 +142,7 @@ echo "spring.application.name=demo" > demo/src/main/resources/application.proper
 
 ## 3.部署 Prometheus 服务
 
-有了访问数据的 URL 之后，可以编辑一个 `prometheus.yml` 来抓取该 demo 项目信息，假设本机 IP 地址为 10.15.232.101，那么可以配置如下的 `prometheus.yml`：
+确认 demo 应用在 9494 端口已经正常提供服务后，就可以编辑一个 `prometheus.yml` 来抓取该 demo 项目信息，假设本机 IP 地址为 10.15.232.101，那么可以配置如下的 `prometheus.yml`：
 
 ```yaml
 scrape_configs:
