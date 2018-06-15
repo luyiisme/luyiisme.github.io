@@ -199,4 +199,4 @@ hello%
 上面简单演示了 Count 型 metrics 的使用，更多使用说明和 metrics 类型可以参考 [SOFALookout](https://github.com/alipay/sofa-lookout) 的 WIKI 文档。
 
 辅助说明，如果出现下面提示说明浏览器和 Prometheus 服务器存在时间差，你可能当前时间查不到结果。
-![image](/img/in-post/lookout-prom-2.jpg)
+![image](/img/in-post/lookout-prom-3.jpg)
