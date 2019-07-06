@@ -78,3 +78,7 @@ scrape_configs:
 在 prometheus 的控制台上查看：
 
 ![image](/img/in-post/prom-node-discovery.jpg)
+
+## 如何监控 exporters
+
+TODO 
