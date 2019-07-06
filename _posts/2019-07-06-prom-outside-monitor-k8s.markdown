@@ -8,7 +8,7 @@ tags:
     - minikube
     - Prometheus
 ---
-最近为了研究 Prometheus 是如何感知和监控 k8s 集群组件的。为了方便 debug Prometheus 代码，在本机上安装了 minikube。目前文章讲(prometheus)使用 in-cluster 模式监控 k8s 集群的比较多，但是从外部监控观测怎么做比较少，所以这里记录下，基于 minikube 摸索的方式。
+最近研究 Prometheus 是如何感知和监控 k8s 集群组件的。为了方便 debug Prometheus 代码，在本机上安装了 minikube。目前文章讲(prometheus)使用 in-cluster 模式监控 k8s 集群的比较多，但是从外部监控观测怎么做比较少，所以这里记录下，基于 minikube 摸索的方式。
 
 ##  1.启动 minikube 并找到 apiserver 的地址（端口）
 
@@ -62,7 +62,7 @@ $ curl --cacert ~/.minikube/ca.crt --cert ~/.minikube/client.crt --key ~/.miniku
 
 ## prometheus 的对应配置
 
-比如只关注(服务发现) node 的 metrics，配置如下(内容替换 "/Users/xx"):
+比如只关注(服务发现) node 的 metrics，配置如下("~/.minikube" 目录下含有相关证书):
 
 ```
 scrape_configs:
