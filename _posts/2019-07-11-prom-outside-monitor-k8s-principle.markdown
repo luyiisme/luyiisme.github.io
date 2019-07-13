@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Prometheus 如何感知并获取 K8S 相关组件 metrics"
+title:      "Prometheus 发现并获取 K8S 相关组件指标源码分析"
 date:       2019-07-11
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
