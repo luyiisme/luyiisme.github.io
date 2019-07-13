@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Prometheus 监控 K8S 源码分析"
+title:      "Prometheus 如何感知并获取 K8S 相关组件 metrics"
 date:       2019-07-11
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
@@ -9,11 +9,11 @@ tags:
     - scrape
     - Prometheus
 ---
-这篇主要从源码层面分析 Prometheus 如何监控 K8S 集群的。
+这篇主要从源码层面分析 Prometheus 如何感知并获取 K8S 相关组件（pod,node...） metrics。
 
 ## 1. Prometheus 的样例配置
 
-首先我们看下 Prometheus 的配置，该配置是告诉 prometheus 感知宿主机(node)的集群（部署）分布，并抓取它们各自的 metrics 信息。
+首先提供个基本的 Prometheus 的样例配置，该配置是让 prometheus 感知宿主机(node)的集群（部署）分布，并抓取它们各自的 metrics 信息。
 
 ```
 scrape_configs:
@@ -44,7 +44,7 @@ main.go 的启动部分，有完整解析 promethues 的 YML 配置的逻辑；
 
 服务发现,是根据我们的配置文件默认采用 k8s client lib 库开发进行观察 apiserver 关于相关组件服务的变更通知。
 
-/cmd/main.go：中服务发现部分 `discoveryManagerScrape.ApplyConfig(c)` 分析:
+/cmd/main.go：中服务发现部分 `discoveryManagerScrape.ApplyConfig(c)`，使用用户的配置分析:
 
 ```
 package discovery
@@ -105,12 +105,12 @@ func (n *Node) process(ctx context.Context, ch chan<- []*targetgroup.Group) bool
 }
 ```
 
-最后 updates 的内容会发送到抓取管理器同步的 chan 中（下面继续分析）。
+最后 updates 的内容会发送到抓取管理器同步的 chan 中（谁在观察这个chan？下面继续分析）。
 
 
 ## 4.感知到目标，如何进行抓取
 
-scrape.NewManager(log.With(logger, "component", "scrape manager"), fanoutStorage),fanoutStorage 就是抓取到数据存储的地方。
+scrape.NewManager(log.With(logger, "component", "scrape manager"), fanoutStorage),这是 main.go 中在构建 scrapeManager，其中 fanoutStorage 就是抓取到数据存储的地方。
 
 scrapeManager.Run(discoveryManagerScrape.SyncCh()) ，对要抓取的结点信息（通过服务发现得到的）进行定时拉取。
 
@@ -228,3 +228,5 @@ func (s *targetScraper) scrape(ctx context.Context, w io.Writer) (string, error)
 ```
 
 上面请求的是 node 10.0.0.15 的 10250 端口的 URL: /metrics 的路径来获取 metrics 信息，（ 备注:由于 ip 地址是 INNER 地址，如果 Prometheus 在 K8S 外部实际请求不通）。
+
+文章，通过 prometheus 如何监控 k8s 的相关宿主机器的指标场景，讲述了大概的实现步骤。
