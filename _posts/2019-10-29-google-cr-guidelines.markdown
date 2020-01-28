@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "谷歌 Code Review 指南"
+title:      "谷歌 Code Review 指南(阅读简化版本)"
 date:       2019-10-29
 author:     "luyi"
 header-img: "img/post-bg-metalworking.jpg"
@@ -8,7 +8,7 @@ tags:
     - Code Review
 ---
 本文主要参考学习 [google 开源的 CR 实践指导](https://github.com/google/eng-practices)。
-原文有些地方太冗长，因此也做了些精简，但没有破坏整体结构，如果您碰巧看到，希望对您也有用；
+原文有些地方太冗长，因此做了些精简，但未破坏整体结构，如果您碰巧看到，希望对您也有用；
 
 Code Review工作：分为评审人( Code Reviewer )指导和提交者（CL Author）；
 
@@ -220,3 +220,9 @@ CL描述： 做了什么变化，为什么做这个变化；这将是存在版�
 
 • 解决冲突
       在解决冲突时，首先要做的是和评审者达成一致。
+      
+---
+
+### 著作权声明
+
+`首次发布于此，转载请保留以上链接`
